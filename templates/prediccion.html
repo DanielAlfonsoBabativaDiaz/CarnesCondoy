@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Coffee Price Prediction</title>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Daniel Babativa, Duvan Londoño</div>
+    </nav>
+    <h1>Casos de Uso de Machine Learning</h1>
+    <button class="toggle-btn">☰</button>
+    <div class="sidebar">
+    <ul class="menu">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="casos_de_uso_ML">Casos de Uso ML</a></li>
+        <li><a href="prediccion">Predicción</a></li>
+        <li class="submenu">
+            <a href="#">Regresión Logística</a>
+            <ul>
+                <li><a href="conceptos_basicos">Conceptos Básicos</a></li>
+                <li><a href="Cursos">Ejercicio Practico</a></li>
+            </ul>
+        </li>
+        <li><a href="Recursos">Recomendación K-NN</a></li>
+    </ul>
+</div>
+    <script>
+        const toggleBtn = document.querySelector('.toggle-btn');
+        const sidebar = document.querySelector('.sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+    </script>
+
+    <h1> Coffee Price Prediction</h1>
+    <form method="post">
+        <label for="rainfall">Rainfall</label>
+        <input type="number" name="rainfall" required>
+        <label for="temperature">Temperature</label>
+        <input type="number" name="temperature" required>
+
+        <button type="submit"> Predict </button>
+    </form>
+    {% if result is not none %}
+        <h2> Estimated Coffee Price : {{result}}</h2>
+    {% endif %}
+</body>
+</html>

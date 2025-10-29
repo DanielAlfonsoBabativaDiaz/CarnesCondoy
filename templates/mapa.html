@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Flask App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Daniel Babativa, Duvan Londoño</div>
+    </nav>
+    <h1> KNN {{name}}</h1>
+    <button class="toggle-btn">☰</button>
+    <div class="sidebar">
+        <ul class="menu">
+            <li><a href="/">Inicio</a></li>
+            <li><a href="casos_de_uso_ML">Casos de Uso ML</a></li>
+            <li><a href="prediccion">Predicción</a></li>
+            <li class="submenu">
+                <a href="#">Regresión Logística</a>
+                <ul>
+                    <li><a href="conceptos_basicos">Conceptos Básicos</a></li>
+                    <li><a href="Cursos">Ejercicio Practico</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+    <script>
+        const toggleBtn = document.querySelector('.toggle-btn');
+        const sidebar = document.querySelector('.sidebar');
+        toggleBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+    </script>
+
+    <!-- Contenido principal -->
+    <div class="container mt-5">
+        <div class="card shadow">
+            <div class="card-body">
+                <h2 class="card-title">Mapa Conceptual</h2>
+                <div><iframe width="600" height="400" frameBorder="0" src="https://www.mindmeister.com/maps/public_map_shell/3825622982/clasificacio-en-machine-learning?width=600&height=400&z=auto&no_share=1&no_logo=1" scrolling="no" style="overflow:hidden;margin-bottom:5px">Your browser is not able to display frames. Please visit <a href="https://www.mindmeister.com/3825622982/clasificacio-en-machine-learning" target="_blank">Clasificacio En Machine Learning</a> on MindMeister.</iframe></div>
+                <h4 class="mt-4">Referencias</h4>
+                <ul>
+                    <ul>
+                        <li>
+                        <li>
+    Martínez, J. (2023). <em>Estadística y Machine Learning con R</em>. Bookdown. 
+    <a href="https://bookdown.org/content/2274/metodos-de-clasificacion.html" target="_blank">
+      https://bookdown.org/content/2274/metodos-de-clasificacion.html
+    </a>
+  </li>
+  <li>
+    Damavis. (2023). <em>Algoritmos de Machine Learning</em>. Damavis Blog. 
+    <a href="https://blog.damavis.com/algoritmos-de-machine-learning/" target="_blank">
+      https://blog.damavis.com/algoritmos-de-machine-learning/
+    </a>
+  </li>
+  <li>
+    Ichi.pro. (2023). <em>13 algoritmos de clasificación de aprendizaje automático</em>. 
+    <a href="https://ichi.pro/es/13-algoritmos-de-clasificacion-de-aprendizaje-automatico-para-ciencia-de-datos-y-su-codigo-247965255771399" target="_blank">
+      https://ichi.pro/es/13-algoritmos-de-clasificacion-de-aprendizaje-automatico-para-ciencia-de-datos-y-su-codigo-247965255771399
+    </a>
+  </li>
+  <li>
+    Copilot. (2025). <em>Síntesis conceptual de clasificación en Machine Learning</em>. Generado por IA para Daniel Babativa. 
+    <a href="https://copilot.microsoft.com" target="_blank">
+      https://copilot.microsoft.com
+    </a>
+  </li>
+</ul>
+
+
+</ul>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
