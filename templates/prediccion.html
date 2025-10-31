@@ -27,17 +27,30 @@
     });
     </script>
 
-    <h1> Coffee Price Prediction</h1>
-    <form method="post">
-        <label for="rainfall">Rainfall</label>
-        <input type="number" name="rainfall" required>
-        <label for="temperature">Temperature</label>
-        <input type="number" name="temperature" required>
+    <h1>Predicción de Fecha de Vencimiento</h1>
+<form action="/prediccion" method="POST">
 
-        <button type="submit"> Predict </button>
-    </form>
-    {% if result is not none %}
-        <h2> Estimated Coffee Price : {{result}}</h2>
-    {% endif %}
+    <label for="fecha_corte">Fecha de corte:</label>
+    <input type="date" name="fecha_corte" required><br>
+
+    <label for="tipo_carne">Tipo de carne:</label>
+    <input type="text" name="tipo_carne" value="Cabra" required><br>
+
+    <label for="productos">Productos utilizados:</label>
+    <input type="text" name="productos" placeholder="Ej: Sal, Vinagre" required><br>
+
+    <label for="empaque">Tipo de empaque:</label>
+    <input type="text" name="empaque" placeholder="Ej: Vacío, Atmósfera modificada" required><br>
+
+    <button type="submit">Genera etiqueta</button>
+</form>
+
+{% if etiqueta is not none %}
+    <div class="etiqueta">
+        <h2>CONDOY</h2>
+        <p>{{ etiqueta.mensaje }}</p>
+    </div>
+{% endif %}
+
 </body>
 </html>
