@@ -5,6 +5,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    background-attachment: fixed;
     height: 100vh;
     font-family: Arial, sans-serif;
     text-align: center;
@@ -20,6 +21,11 @@ h1 {
 }
 
 h2 {
+    color: rgb(255, 255, 255);
+    text-align: center;
+}
+
+h3 {
     color: rgb(255, 255, 255);
     text-align: center;
 }
@@ -84,12 +90,6 @@ nav .logo {
     flex: 1;
 }
 
-/*body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #000000;
-}*/
-
 .toggle-btn {
     position: fixed;
     top: 10px;
@@ -136,4 +136,122 @@ nav .logo {
 
 .sidebar.active~.main-content {
     margin-left: 250px;
+}
+
+.carousel {
+    position: center;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    text-align: center;
+    padding: 10px 20px;
+}
+
+.carousel-item img {
+    width: 100%;
+    height: 500px;
+    object-fit: contain;
+    background: transparent;
+    border: none !important;
+
+}
+
+.carousel-fondo {
+    width: 100%;
+    max-height: 100px;
+    overflow: hidden;
+    position: relative;
+    z-index: 1;
+    border-radius: 8px;
+
+}
+
+.cuadro2-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px 20px;
+    flex-wrap: wrap;
+}
+
+.cuadro1 {
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 12px;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0 4px 12px rgba(238, 255, 0, 0.2);
+    text-align: center;
+    color: #e0ce00;
+    font-family: 'Georgia', serif;
+}
+
+.cuadros-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 40px 20px;
+    flex-wrap: wrap;
+}
+
+.cuadro {
+    background-color: rgba(0, 0, 0, 0.85);
+    border-radius: 12px;
+    padding: 20px;
+    width: 400px;
+    box-shadow: 0 4px 12px rgba(238, 255, 0, 0.2);
+    text-align: center;
+    color: #e0ce00;
+    font-family: 'Georgia', serif;
+}
+
+.cuadro h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #fff200;
+}
+
+.cuadro p {
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+
+.sticker {
+    width: 300px;
+    height: 150px;
+    padding: 10px;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    border: 1px solid black;
+    box-sizing: border-box;
+    margin: auto;
+}
+
+@media print {
+    body {
+        margin: 0;
+        padding: 0;
+    }
+
+    .sticker {
+        border: none;
+        width: 300px;
+        height: 150px;
+        page-break-inside: avoid;
+    }
+
+    button {
+        display: none;
+    }
+}
+
+button {
+    background-color: #f3ef00;
+    color: rgb(0, 0, 0);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }

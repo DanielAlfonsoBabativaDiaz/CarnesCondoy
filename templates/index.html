@@ -13,12 +13,11 @@
     <nav class="navbar">
         <div class="logo">Daniel Babativa, Duvan Londoño</div>
     </nav>
-    <h1>Carnes Condoy</h1>
+    <h1></h1>
     <button class="toggle-btn">☰</button>
 <div class="sidebar">
     <ul class="menu">
         <li><a href="/">Inicio</a></li>
-        <li><a href="casos_de_uso_ML">Casos de Uso ML</a></li>
         <li><a href="prediccion">Predicción</a></li>
     </ul>
 </div>
@@ -30,6 +29,68 @@
         sidebar.classList.toggle('active');
     });
 </script>
+
+    <div id="carouselFondo" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="{{ url_for('static', filename='img/folleto.png ') }}" class="d-block w-100" alt="Fondo 1">
+            </div>
+            <div class="carousel-item">
+                <img src="{{ url_for('static', filename='img/expocision.jpg')}}" class="d-block w-100" alt="Fondo 2">
+            </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselFondo" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselFondo" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselFondo" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Siguiente</span>
+    </button>
+    </div>
+    <div class="cuadro2-container">
+        <div class="cuadro1">
+            <h3>Quienes Somos</h3>
+            <p>
+                Cárnicos Condoy – Cecina de
+Cabra es un emprendimiento
+familiar nacido en el cantón
+Zapotillo provincia de Loja,
+dedicado a la producción
+artesanal de cecina de cabra
+empacada al vacío. Con
+profundo respeto por nuestras
+raíces y la tradición culinaria
+lojana, ofrecemos un producto
+natural, lleno de sabor y
+elaborado con altos estándares
+de higiene y cuidado.
+            </p>
+        </div>
+    </div>
+
+    <div class="cuadros-container">
+        <div class="cuadro">
+            <h3> Misión </h3>
+            <p>
+                Producir y comercializar cecina de
+cabra de alta calidad, rescatando los
+sabores tradicionales de Zapotillo y
+promoviendo el desarrollo local.
+            </p>
+        </div>
+        <div class="cuadro">
+            <h3>Visión</h3>
+            <p>
+                Ser reconocidos a nivel regional y
+nacional como un referente de
+productos cárnicos artesanales de
+excelencia, con identidad cultural y
+compromiso social.
+            </p>
+        </div>
+    </div>
 
 </body>
 </html>

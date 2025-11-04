@@ -4,18 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=, initial-scale=1.0">
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Coffee Price Prediction</title>
+    <title>Carnes Condoys</title>
 </head>
 <body>
     <nav class="navbar">
         <div class="logo">Daniel Babativa, Duvan Londoño</div>
     </nav>
-    <h1>Casos de Uso de Machine Learning</h1>
+    <h1>Fechas de Vencimiento</h1>
     <button class="toggle-btn">☰</button>
     <div class="sidebar">
     <ul class="menu">
         <li><a href="/">Inicio</a></li>
-        <li><a href="casos_de_uso_ML">Casos de Uso ML</a></li>
         <li><a href="prediccion">Predicción</a></li>
 </div>
     <script>
@@ -37,7 +36,7 @@
     <input type="text" name="tipo_carne" value="Cabra" required><br>
 
     <label for="productos">Productos utilizados:</label>
-    <input type="text" name="productos" placeholder="Ej: Sal, Vinagre" required><br>
+    <input type="text" name="productos" placeholder="Ej: Sal, vinagre, Vinagre" required><br>
 
     <label for="empaque">Tipo de empaque:</label>
     <input type="text" name="empaque" placeholder="Ej: Vacío, Atmósfera modificada" required><br>
@@ -45,12 +44,37 @@
     <button type="submit">Genera etiqueta</button>
 </form>
 
-{% if etiqueta is not none %}
-    <div class="etiqueta">
-        <h2>CONDOY</h2>
-        <p>{{ etiqueta.mensaje }}</p>
+{% if ruta_imagen %}
+    <h3>Etiqueta generada</h3>
+    <div id="etiqueta-imprimible" class="Sticker">
+    <img src="{{ url_for('static', filename='img/etiqueta_generada.png') }}" alt="Etiqueta generada" style="width:300px;">
     </div>
+
+    <button onclick="imprimirEtiqueta()">🖨️Imprimir </button>
 {% endif %}
+
+<script>
+    function imprimirEtiqueta() {
+    const contenido = document.getElementById('etiqueta-imprimible').outerHTML;
+    const ventana = window.open('', '', 'height=800,width=1000');
+    ventana.document.write(`
+        <html>
+        <head>
+            <title>Sticker</title>
+            <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        </head>
+        <body>
+            ${contenido}
+        </body>
+        </html>
+    `);
+    ventana.document.close();
+    ventana.focus();
+    ventana.print();
+    ventana.close();
+    }
+
+</script>
 
 </body>
 </html>

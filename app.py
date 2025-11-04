@@ -2,6 +2,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from datetime import datetime, timedelta
+from PIL import Image, ImageDraw, ImageFont
 import LinearRegression
 import joblib
 import numpy as np
@@ -22,11 +23,31 @@ def generar_etiqueta(fecha_corte, dias_predichos):
         "mensaje": f"CECINA DE CABRA\nFecha de corte: {fecha_corte_dt.strftime('%d/%m/%Y')}\nFecha de vencimiento: {fecha_vencimiento.strftime('%d/%m/%Y')}"
     }
 
+def crear_etiqueta_imagen(etiqueta):
+    ancho, alto = 400, 200
+    imagen = Image.new("RGB", (ancho, alto), "white")
+    draw = ImageDraw.Draw(imagen)
+
+    try:
+        fuente = ImageFont.truetype("arial.ttf", 20)
+    except:
+        fuente = ImageFont.load_default()
+
+    texto = f"""
+    CONDOY
+    CECINA DE CABRA
+
+    Fecha de corte: {etiqueta['corte']}
+    Fecha de vencimiento: {etiqueta['vencimiento']}
+    """
+
+    draw.multiline_text((20, 20), texto.strip(), fill="black", font=fuente, spacing=5)
+
+    ruta = "static/img/etiqueta_generada.png"
+    imagen.save(ruta)
+    return ruta
 
 
-@app.route('/casos_de_uso_ML')
-def casos_de_uso_ML():
-    return render_template('casos_de_uso_ML.html')
 
 @app.route('/navbar')
 def navbar():
@@ -40,6 +61,7 @@ def home():
 @app.route("/prediccion", methods=["GET", "POST"])
 def predecir():
     etiqueta = None
+    ruta_imagen = None
 
     if request.method == "POST":
         fecha_corte = request.form['fecha_corte']
@@ -56,8 +78,10 @@ def predecir():
 
         dias = model.predict(entrada)[0]
         etiqueta = generar_etiqueta(fecha_corte, dias)
+        ruta_imagen = crear_etiqueta_imagen(etiqueta)
+        
 
-    return render_template("prediccion.html", etiqueta=etiqueta)
+    return render_template("prediccion.html", etiqueta=etiqueta, ruta_imagen=ruta_imagen)
 
 
 
