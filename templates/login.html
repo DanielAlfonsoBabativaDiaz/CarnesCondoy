@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Iniciar sesión</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-avatar"></div>
+        <h2>Iniciar sesión</h2>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    {% for category, message in messages %}
+      <div class="flash-message {{ category }}">{{ message }}</div>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+        <form method="POST" action="{{ url_for('login') }}">
+            <input type="text" name="email_or_username" placeholder="Correo o usuario" required>
+            <input type="password" name="password" placeholder="Contraseña" required>
+
+            <div class="button-group">
+    <button type="submit" class="btn-login">Iniciar sesión</button>
+    <a href="{{ url_for('register') }}" class="btn-cancel">Registrar</a>
+</div>
+
+            <a href="{{ url_for('forgot_password') }}" class="forgot-password">¿Olvidaste tu contraseña?</a>
+        </form>
+    </div>
+</body>
+</html>
