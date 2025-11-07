@@ -1,0 +1,131 @@
+body {
+    background-color: #0f0f0f;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.login-container {
+    background-color: #1c1c1e;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+    padding: 40px;
+    width: 350px;
+    color: white;
+    text-align: center;
+}
+
+.login-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: #2a2a2d;
+    margin: 0 auto 20px auto;
+}
+
+h2 {
+    margin-bottom: 25px;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 12px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 8px;
+    background-color: #2a2a2d;
+    color: white;
+    outline: none;
+    font-size: 0.95rem;
+}
+
+input::placeholder {
+    color: #999;
+}
+
+button {
+    width: 48%;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 0.95rem;
+}
+
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Espacio entre botones */
+    margin-top: 10px;
+}
+
+.btn-login,
+.btn-cancel {
+    width: 48%;
+    padding: 12px;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+}
+
+.btn-login {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-login:hover {
+    background-color: #006ae6;
+}
+
+.btn-cancel {
+    display: inline-block;
+    width: 48%;
+    padding: 12px;
+    border-radius: 8px;
+    background-color: #555;
+    color: white;
+    text-align: center;
+    font-weight: bold;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: pointer;
+    border: none;
+    box-sizing: border-box;
+}
+
+.btn-cancel:hover {
+    background-color: #666;
+}
+
+.forgot-password {
+    display: block;
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: #00aaff;
+    text-decoration: none;
+}
+
+.forgot-password:hover {
+    text-decoration: underline;
+}
+
+.flash-messages {
+    background-color: #2a2a2d;
+    color: #ff4c4c;
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+}

@@ -20,6 +20,10 @@
         <li><a href="/">Inicio</a></li>
         <li><a href="prediccion">Predicción</a></li>
     </ul>
+
+    <div class="logout-section">
+        <a href="{{ url_for('logout') }}" class="btn-logout">Cerrar sesión</a>
+    </div>
 </div>
     <script>
         const toggleBtn = document.querySelector('.toggle-btn');
