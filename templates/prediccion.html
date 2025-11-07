@@ -33,14 +33,23 @@
     <input type="date" name="fecha_corte" required><br>
 
     <label for="tipo_carne">Tipo de carne:</label>
-    <input type="text" name="tipo_carne" value="Cabra" required><br>
-
+    <select name="tipo_carne" required>
+    <option value="Cabra">Cabra</option>
+</select>
+<br>
     <label for="productos">Productos utilizados:</label>
-    <input type="text" name="productos" placeholder="Ej: Sal, vinagre, Vinagre" required><br>
-
+    <select name="productos" required>
+    <option value="Sal">Sal</option>
+    <option value="Vinagre">Vinagre</option>
+    <option value="Condimentos">Condimentos</option>
+</select>
+<br>
     <label for="empaque">Tipo de empaque:</label>
-    <input type="text" name="empaque" placeholder="Ej: Vacío, Atmósfera modificada" required><br>
-
+    <select name="empaque" required>
+    <option value="Vacío">Vacío</option>
+    <option value="Atmósfera modificada">Atmósfera modificada</option>
+</select>
+<br>
     <button type="submit">Genera etiqueta</button>
 </form>
 

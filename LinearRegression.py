@@ -9,7 +9,7 @@ import joblib
 data = {
     "fecha_corte": ["2025-10-01", "2025-10-05", "2025-10-10"],
     "tipo_carne": ["Cabra", "Cabra", "Cabra"],
-    "productos_utilizados": ["Sal", "Sal, Vinagre", "Vinagre"],
+    "productos_utilizados": ["Sal", "Vinagre", "Condimentos"],
     "tipo_empaque": ["Vacío", "Vacío", "Atmósfera modificada"],
     "fecha_vencimiento": ["2025-10-15", "2025-10-20", "2025-10-25"]
 }
