@@ -6,6 +6,8 @@ from dotenv import load_dotenv
 from datetime import datetime, timedelta
 from PIL import Image, ImageDraw, ImageFont
 import os
+import base64
+from io import BytesIO
 import LinearRegression
 import joblib
 import numpy as np
@@ -37,6 +39,16 @@ class User(UserMixin, db.Model):
 
     def check_password(self, password):
         return check_password_hash(self.password_hash, password)
+    
+class Etiqueta(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    tipo_carne = db.Column(db.String(100))
+    productos = db.Column(db.String(100))
+    empaque = db.Column(db.String(100))
+    fecha_corte = db.Column(db.String(20))
+    fecha_vencimiento = db.Column(db.String(20))
+    imagen_base64 = db.Column(db.Text)  # Aquí guardaremos la imagen en formato Base64
+    fecha_creacion = db.Column(db.DateTime, default=datetime.utcnow)    
     
 @login_manager.user_loader
 def load_user(user_id):
@@ -76,7 +88,36 @@ def crear_etiqueta_imagen(etiqueta):
     imagen.save(ruta)
     return ruta
 
+def crear_etiqueta_imagen(etiqueta):
+    ancho, alto = 400, 200
+    imagen = Image.new("RGB", (ancho, alto), "white")
+    draw = ImageDraw.Draw(imagen)
 
+    try:
+        fuente = ImageFont.truetype("arial.ttf", 20)
+    except:
+        fuente = ImageFont.load_default()
+
+    texto = f"""
+    CONDOY
+    CECINA DE CABRA
+
+    Fecha de corte: {etiqueta['corte']}
+    Fecha de vencimiento: {etiqueta['vencimiento']}
+    """
+
+    draw.multiline_text((20, 20), texto.strip(), fill="black", font=fuente, spacing=5)
+
+    # Guardar imagen en disco
+    ruta = "static/img/etiqueta_generada.png"
+    imagen.save(ruta)
+
+    # Convertir a Base64 para guardar en la BD
+    buffer = BytesIO()
+    imagen.save(buffer, format="PNG")
+    imagen_base64 = base64.b64encode(buffer.getvalue()).decode('utf-8')
+
+    return ruta, imagen_base64
 
 @app.route('/navbar')
 def navbar():
@@ -204,11 +245,30 @@ def predecir():
 
         dias = model.predict(entrada)[0]
         etiqueta = generar_etiqueta(fecha_corte, dias)
-        ruta_imagen = crear_etiqueta_imagen(etiqueta)
-        
+
+        # Generar imagen + versión Base64
+        ruta_imagen, imagen_base64 = crear_etiqueta_imagen(etiqueta)
+
+        # Guardar en la base de datos
+        nueva_etiqueta = Etiqueta(
+            tipo_carne=tipo_carne,
+            productos=productos,
+            empaque=empaque,
+            fecha_corte=etiqueta['corte'],
+            fecha_vencimiento=etiqueta['vencimiento'],
+            imagen_base64=imagen_base64
+        )
+
+        db.session.add(nueva_etiqueta)
+        db.session.commit()
 
     return render_template("prediccion.html", etiqueta=etiqueta, ruta_imagen=ruta_imagen)
 
+
+@app.route("/etiquetas")
+def etiquetas():
+    todas = Etiqueta.query.order_by(Etiqueta.fecha_creacion.desc()).all()
+    return render_template("etiquetas.html", etiquetas=todas)
 
 if __name__ == "__main__":
     def create_tables():

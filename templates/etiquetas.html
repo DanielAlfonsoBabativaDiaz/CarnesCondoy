@@ -1,0 +1,10 @@
+<h2>Etiquetas Generadas</h2>
+
+{% for e in etiquetas %}
+<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
+  <p><b>Tipo de carne:</b> {{ e.tipo_carne }}</p>
+  <p><b>Fecha de corte:</b> {{ e.fecha_corte }}</p>
+  <p><b>Fecha de vencimiento:</b> {{ e.fecha_vencimiento }}</p>
+  <img src="data:image/png;base64,{{ e.imagen_base64 }}" alt="Etiqueta generada" style="width: 250px;">
+</div>
+{% endfor %}
