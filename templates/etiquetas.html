@@ -1,10 +1,90 @@
-<h2>Etiquetas Generadas</h2>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Etiquetas</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/etiquetas.css') }}">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Daniel Babativa, Duvan Londoño</div>
+    </nav>
+    <h1></h1>
+    <button class="toggle-btn">☰</button>
+<div class="sidebar">
+    <ul class="menu">
+        <li><a href="/">Inicio</a></li>
+        <li><a href="prediccion">Predicción</a></li>
+        <li><a href="etiquetas">Historial de etiquetas</a></li>
+    </ul>
 
-{% for e in etiquetas %}
-<div style="border: 1px solid #ccc; padding: 10px; margin-bottom: 15px;">
-  <p><b>Tipo de carne:</b> {{ e.tipo_carne }}</p>
-  <p><b>Fecha de corte:</b> {{ e.fecha_corte }}</p>
-  <p><b>Fecha de vencimiento:</b> {{ e.fecha_vencimiento }}</p>
-  <img src="data:image/png;base64,{{ e.imagen_base64 }}" alt="Etiqueta generada" style="width: 250px;">
+    <div class="logout-section">
+    {% if current_user.is_authenticated %}
+        <a href="{{ url_for('logout') }}" class="btn-logout">Cerrar Sesión</a>
+    {% else %}
+        <a href="{{ url_for('login') }}" class="btn-logout">Iniciar Sesión</a>
+    {% endif %}
 </div>
-{% endfor %}
+</div>
+    <script>
+        const toggleBtn = document.querySelector('.toggle-btn');
+        const sidebar = document.querySelector('.sidebar');
+
+    toggleBtn.addEventListener('click', () => {
+        sidebar.classList.toggle('active');
+    });
+    </script>
+
+    <div class="etiquetas-container">
+        {% if etiquetas %}
+            {% for e in etiquetas %}
+            <div class="etiqueta-card" id="etiqueta-{{ loop.index0 }}">
+                <h3>Etiqueta generada</h3>
+                <p><b>Tipo de carne:</b> {{ e.tipo_carne }}</p>
+                <p><b>Fecha de corte:</b> {{ e.fecha_corte }}</p>
+                <p><b>Fecha de vencimiento:</b> {{ e.fecha_vencimiento }}</p>
+                <div id="etiqueta-imprimible-{{ loop.index0 }}" class="Sticker">
+                    <img src="data:image/png;base64,{{ e.imagen_base64 }}" 
+                         alt="Etiqueta generada" 
+                         style="width:300px;">
+                </div>
+                <br>
+                <button class="print-btn" onclick="imprimirEtiqueta('{{ loop.index0 }}')">🖨 Imprimir</button>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p style="text-align:center;">No hay etiquetas guardadas todavía.</p>
+        {% endif %}
+    </div>
+
+    <script>
+        function imprimirEtiqueta(index) {
+            const etiqueta = document.getElementById(`etiqueta-imprimible-${index}`);
+            if (!etiqueta) {
+                alert("No se encontró la etiqueta para imprimir.");
+                return;
+            }
+
+            const contenido = etiqueta.outerHTML;
+            const ventana = window.open('', '', 'height=800,width=1000');
+            ventana.document.write(`
+                <html>
+                <head>
+                    <title>Sticker</title>
+                    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+                </head>
+                <body style="display:flex; justify-content:center; align-items:center; height:100vh; background-color:white;">
+                    ${contenido}
+                </body>
+                </html>
+            `);
+            ventana.document.close();
+            ventana.focus();
+            ventana.print();
+            ventana.close();
+        }
+    </script>
+</body>
+</html>
