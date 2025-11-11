@@ -123,16 +123,10 @@ def crear_etiqueta_imagen(etiqueta):
 def navbar():
     return render_template('navbar.html')
 
-@app.route("/")
-def index():
-    if current_user.is_authenticated:
-        return redirect(url_for("dashboard"))  # o home, según lo que uses como principal
-    return redirect(url_for("login"))
-
-#@app.route('/carnes')
-#def home():
-#    Myname = "Carnes Condoy"
-#    return render_template('index.html', name=Myname)
+@app.route('/')
+def home():
+    Myname = "Carnes Condoy"
+    return render_template('index.html', name=Myname)
 
 @app.route("/dashboard")
 @login_required
@@ -226,6 +220,7 @@ def me():
     })
 
 @app.route("/prediccion", methods=["GET", "POST"])
+@login_required
 def predecir():
     etiqueta = None
     ruta_imagen = None
@@ -266,6 +261,7 @@ def predecir():
 
 
 @app.route("/etiquetas")
+@login_required
 def etiquetas():
     todas = Etiqueta.query.order_by(Etiqueta.fecha_creacion.desc()).all()
     return render_template("etiquetas.html", etiquetas=todas)
