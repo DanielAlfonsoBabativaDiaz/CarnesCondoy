@@ -8,7 +8,7 @@
 </head>
 <body>
     <nav class="navbar">
-        <div class="logo">Daniel Babativa, Duvan Londoño</div>
+        <div class="logo">Daniel Babativa, Julian Molina</div>
     </nav>
     <h1></h1>
     <button class="toggle-btn">☰</button>
@@ -16,7 +16,6 @@
     <ul class="menu">
         <li><a href="/">Inicio</a></li>
         <li><a href="prediccion">Predicción</a></li>
-        <li><a href="etiquetas">Etiquetas</a></li>
         <li><a href="etiquetas">Historial de etiquetas</a></li>
     </ul>
 
@@ -94,6 +93,35 @@
     ventana.close();
     }
 
+</script>
+<div id="chatbot-toggle">
+    💬
+</div>
+
+<div class="chatbot" id="chatbot-box" style="display: none;">
+    <div id="chatbot-header">Asistente Virtual</div>
+
+    <div id="chatbot-messages"></div>
+
+    <div id="chatbot-input-area">
+        <input type="text" id="chatbot-input" placeholder="Escribe tu mensaje...">
+        <button id="chatbot-send">Enviar</button>
+    </div>
+</div>
+
+<script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
+<script>
+document.getElementById("chatbot-toggle").addEventListener("click", function () {
+    const box = document.getElementById("chatbot-box");
+
+    if (box.classList.contains("active")) {
+        box.classList.remove("active");
+        setTimeout(() => box.style.display = "none", 200);
+    } else {
+        box.style.display = "flex";
+        setTimeout(() => box.classList.add("active"), 10);
+    }
+});
 </script>
 
 </body>

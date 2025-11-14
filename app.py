@@ -266,6 +266,20 @@ def etiquetas():
     todas = Etiqueta.query.order_by(Etiqueta.fecha_creacion.desc()).all()
     return render_template("etiquetas.html", etiquetas=todas)
 
+@app.route('/chatbot', methods=['POST'])
+def chatbot():
+    user_message = request.json.get("message", "").lower()
+
+    # Aquí programas respuestas básicas o conectas IA real
+    if "hola" in user_message:
+        response = "¡Hola! ¿En qué puedo ayudarte?"
+    elif "precio" in user_message:
+        response = "Los precios varían según el peso y el tipo de carne."
+    else:
+        response = "Lo siento, no entendí tu mensaje, ¿puedes reformular?"
+
+    return jsonify({"response": response})
+
 if __name__ == "__main__":
     def create_tables():
         with app.app_context():
