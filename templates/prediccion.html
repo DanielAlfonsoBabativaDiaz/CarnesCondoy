@@ -1,106 +1,97 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <title>Carnes Condoys</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>Cárnicos Condoy - Predicción</title>
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="logo">Daniel Babativa, Julian Molina</div>
+
+    <!-- NAVBAR SUPERIOR ESTILO INDEX -->
+    <nav class="navbar" style="background-color:#6c0000; padding:12px 25px; display:flex; align-items:center; color:white;">
+        <h2 style="margin:0; font-weight:bold;">Cárnicos Condoy</h2>
+
+        <div style="margin-left:auto; display:flex; gap:25px; align-items:center;">
+
+            <a href="/" class="nav-link" style="color:white; text-decoration:none; font-size:18px;">Inicio</a>
+            <a href="/prediccion" class="nav-link" style="color:white; text-decoration:none; font-size:18px;">Predicción</a>
+            <a href="/etiquetas" class="nav-link" style="color:white; text-decoration:none; font-size:18px;">Etiquetas</a>
+
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logout') }}" class="btn-logout">Cerrar Sesión</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn-logout">Iniciar Sesión</a>
+            {% endif %}
+        </div>
     </nav>
-    <h1></h1>
-    <button class="toggle-btn">☰</button>
-<div class="sidebar">
-    <ul class="menu">
-        <li><a href="/">Inicio</a></li>
-        <li><a href="prediccion">Predicción</a></li>
-        <li><a href="etiquetas">Historial de etiquetas</a></li>
-    </ul>
 
-    <div class="logout-section">
-    {% if current_user.is_authenticated %}
-        <a href="{{ url_for('logout') }}" class="btn-logout">Cerrar Sesión</a>
-    {% else %}
-        <a href="{{ url_for('login') }}" class="btn-logout">Iniciar Sesión</a>
-    {% endif %}
-</div>
-</div>
-    <script>
-        const toggleBtn = document.querySelector('.toggle-btn');
-        const sidebar = document.querySelector('.sidebar');
+    <!-- CONTENIDO -->
+    <main style="margin-top:40px; text-align:center;">
 
-    toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
-    });
-    </script>
+        <h1 style="color:white; margin-bottom:20px;">
+            Predicción de Fecha de Vencimiento
+        </h1>
 
-    <h1>Predicción de Fecha de Vencimiento</h1>
-<form action="/prediccion" method="POST">
+        <!-- FORMULARIO -->
+        <form action="/prediccion" method="POST">
 
-    <label for="fecha_corte">Fecha de corte:</label>
-    <input type="date" name="fecha_corte" required><br>
+            <div class="form-row">
+            <div class="form-group">
+                <label>Fecha de corte:</label>
+                <input type="date" name="fecha_corte" required>
+            </div>
 
-    <label for="tipo_carne">Tipo de carne:</label>
-    <select name="tipo_carne" required>
-    <option value="Cabra">Cabra</option>
-</select>
-<br>
-    <label for="productos">Productos utilizados:</label>
-    <select name="productos" required>
-    <option value="Sal">Sal</option>
-    <option value="Vinagre">Vinagre</option>
-    <option value="Condimentos">Condimentos</option>
-</select>
-<br>
-    <label for="empaque">Tipo de empaque:</label>
-    <select name="empaque" required>
-    <option value="Vacío">Vacío</option>
-    <option value="Atmósfera modificada">Atmósfera modificada</option>
-</select>
-<br>
-    <button type="submit">Genera etiqueta</button>
-</form>
+            <div class="form-group">
+                <label>Tipo de carne:</label>
+                <select name="tipo_carne" required>
+                    <option value="Cabra">Cabra</option>
+                </select>
+            </div>
+        </div>
 
-{% if ruta_imagen %}
-    <h3>Etiqueta generada</h3>
-    <div id="etiqueta-imprimible" class="Sticker">
-    <img src="{{ url_for('static', filename='img/etiqueta_generada.png') }}" alt="Etiqueta generada" style="width:300px;">
-    </div>
+        <div class="form-row">
+            <div class="form-group">
+                <label>Productos utilizados:</label>
+                <select name="productos" required>
+                    <option value="Sal">Sal</option>
+                    <option value="Vinagre">Vinagre</option>
+                    <option value="Condimentos">Condimentos</option>
+                </select>
+            </div>
 
-    <button onclick="imprimirEtiqueta()">🖨Imprimir </button>
-{% endif %}
+            <div class="form-group">
+                <label>Tipo de empaque:</label>
+                <select name="empaque" required>
+                    <option value="Vacío">Vacío</option>
+                    <option value="Atmósfera modificada">Atmósfera modificada</option>
+                </select>
+            </div>
+        </div>
 
-<script>
-    function imprimirEtiqueta() {
-    const contenido = document.getElementById('etiqueta-imprimible').outerHTML;
-    const ventana = window.open('', '', 'height=800,width=1000');
-    ventana.document.write(`
-        <html>
-        <head>
-            <title>Sticker</title>
-            <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        </head>
-        <body>
-            ${contenido}
-        </body>
-        </html>
-    `);
-    ventana.document.close();
-    ventana.focus();
-    ventana.print();
-    ventana.close();
-    }
+        <button class="btn-prediccion" type="submit">Generar Etiqueta</button>
+    </form>
 
-</script>
-<div id="chatbot-toggle">
-    💬
 </div>
 
-<div class="chatbot" id="chatbot-box" style="display: none;">
+        {% if ruta_imagen %}
+        <h3 style="color:#fff200;">Etiqueta generada</h3>
+
+        <div id="etiqueta-imprimible" class="Sticker">
+            <img src="{{ url_for('static', filename='img/etiqueta_generada.png') }}" 
+                 alt="Etiqueta generada" style="width:300px;">
+        </div>
+
+        <button onclick="imprimirEtiqueta()">🖨 Imprimir</button>
+        {% endif %}
+
+    </main>
+
+    <div id="chatbot-toggle">💬</div>
+
+<div class="chatbot" id="chatbot-box">
     <div id="chatbot-header">Asistente Virtual</div>
-
     <div id="chatbot-messages"></div>
 
     <div id="chatbot-input-area">
@@ -110,18 +101,51 @@
 </div>
 
 <script src="{{ url_for('static', filename='js/chatbot.js') }}"></script>
-<script>
-document.getElementById("chatbot-toggle").addEventListener("click", function () {
-    const box = document.getElementById("chatbot-box");
 
-    if (box.classList.contains("active")) {
-        box.classList.remove("active");
-        setTimeout(() => box.style.display = "none", 200);
+<script>
+const chatbotToggle = document.getElementById("chatbot-toggle");
+const chatbotBox = document.getElementById("chatbot-box");
+
+chatbotToggle.addEventListener("click", () => {
+    chatbotBox.classList.toggle("active");
+
+    if (chatbotBox.classList.contains("active")) {
+        chatbotBox.style.display = "flex";
     } else {
-        box.style.display = "flex";
-        setTimeout(() => box.classList.add("active"), 10);
+        chatbotBox.style.display = "none";
     }
 });
+</script>
+
+    <script>
+function imprimirEtiqueta() {
+    var contenido = document.getElementById("etiqueta-imprimible").innerHTML;
+
+    var ventana = window.open("", "_blank");
+    ventana.document.write(`
+        <html>
+        <head>
+            <title>Imprimir Etiqueta</title>
+            <style>
+                body {
+                    font-family: Arial, sans-serif;
+                    padding: 20px;
+                }
+                img {
+                    width: 300px;
+                }
+            </style>
+        </head>
+        <body>
+            ${contenido}
+            <script>
+                window.onload = function() { window.print(); }
+            <\/script>
+        </body>
+        </html>
+    `);
+    ventana.document.close();
+}
 </script>
 
 </body>

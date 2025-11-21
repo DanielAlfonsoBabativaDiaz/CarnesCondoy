@@ -7,35 +7,27 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/etiquetas.css') }}">
 </head>
+
 <body>
-    <nav class="navbar">
-        <div class="logo">Daniel Babativa, Julian Molina</div>
+
+    <!-- NAVBAR SUPERIOR IGUAL A INDEX Y PREDICCIÓN -->
+    <nav class="navbar" style="background-color:#6c0000; padding:12px 25px; display:flex; align-items:center; color:white;">
+        <h2 style="margin:0; font-weight:bold;">Cárnicos Condoy</h2>
+
+        <div style="margin-left:auto; display:flex; gap:25px; align-items:center;">
+            <a href="/" class="nav-link" style="color:white; text-decoration:none; font-size:18px;">Inicio</a>
+            <a href="/prediccion" class="nav-link" style="color:white; text-decoration:none; font-size:18px;">Predicción</a>
+            <a href="/etiquetas" class="nav-link" style="color:white; text-decoration:none; font-size:18px;">Etiquetas</a>
+
+            {% if current_user.is_authenticated %}
+                <a href="{{ url_for('logout') }}" class="btn-logout">Cerrar Sesión</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="btn-logout">Iniciar Sesión</a>
+            {% endif %}
+        </div>
     </nav>
+
     <h1></h1>
-    <button class="toggle-btn">☰</button>
-<div class="sidebar">
-    <ul class="menu">
-        <li><a href="/">Inicio</a></li>
-        <li><a href="prediccion">Predicción</a></li>
-        <li><a href="etiquetas">Historial de etiquetas</a></li>
-    </ul>
-
-    <div class="logout-section">
-    {% if current_user.is_authenticated %}
-        <a href="{{ url_for('logout') }}" class="btn-logout">Cerrar Sesión</a>
-    {% else %}
-        <a href="{{ url_for('login') }}" class="btn-logout">Iniciar Sesión</a>
-    {% endif %}
-</div>
-</div>
-    <script>
-        const toggleBtn = document.querySelector('.toggle-btn');
-        const sidebar = document.querySelector('.sidebar');
-
-    toggleBtn.addEventListener('click', () => {
-        sidebar.classList.toggle('active');
-    });
-    </script>
 
     <div class="etiquetas-container">
         {% if etiquetas %}
@@ -45,11 +37,11 @@
                 <p><b>Tipo de carne:</b> {{ e.tipo_carne }}</p>
                 <p><b>Fecha de corte:</b> {{ e.fecha_corte }}</p>
                 <p><b>Fecha de vencimiento:</b> {{ e.fecha_vencimiento }}</p>
+
                 <div id="etiqueta-imprimible-{{ loop.index0 }}" class="Sticker">
-                    <img src="data:image/png;base64,{{ e.imagen_base64 }}" 
-                         alt="Etiqueta generada" 
-                         style="width:300px;">
+                    <img src="data:image/png;base64,{{ e.imagen_base64 }}" alt="Etiqueta generada" style="width:300px;">
                 </div>
+
                 <br>
                 <button class="print-btn" onclick="imprimirEtiqueta('{{ loop.index0 }}')">🖨 Imprimir</button>
             </div>
@@ -86,5 +78,6 @@
             ventana.close();
         }
     </script>
+
 </body>
 </html>
