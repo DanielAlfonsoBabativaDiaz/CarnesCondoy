@@ -273,8 +273,10 @@ def chatbot():
     # Aquí programas respuestas básicas o conectas IA real
     if "hola" in user_message:
         response = "¡Hola! ¿En qué puedo ayudarte?"
-    elif "precio" in user_message:
-        response = "Los precios varían según el peso y el tipo de carne."
+    elif "como genero una etiqueta" in user_message:
+        response = "debe llenar el formuario"
+    elif "en donde reviso las etiquetas generadas" in user_message:
+        response = "ingrese a etiquetas"
     else:
         response = "Lo siento, no entendí tu mensaje, ¿puedes reformular?"
 
